@@ -42,8 +42,8 @@ services:
       - "6680:6680" # HTTP/Websockets (for Frontend and APIs)
       - "6600:6600" # MPD (Music Player Daemon)
     volumes:
-      # CRITICAL: Mount your music folder (update the host path below)
-      - /path/to/your/music:/data/music:ro
+      # CRITICAL: Mount your music folder (path is set in the .env file)
+      - ${MUSIC_PATH}:/data/music:ro
       # For Mopidy config and local data (e.g., library scan cache)
       - ./config/mopidy:/config
       - ./data/mopidy:/data
@@ -98,14 +98,35 @@ services:
 
 ## 🗺️ Project Roadmap (Phased Approach)
 
+### Phase 0: Documentation & Scaffolding
+
+* [x] **0.1 Project Definition:** Create the core `README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, and `project_plan.md` documents.
+* [x] **0.2 User Manual:** Create the initial `docs/` structure and fill out the Installation, Configuration, Administration, and Troubleshooting guides.
+* [x] **0.3 Configuration Scaffolding:** Create the `.env.example` file to establish a clear and secure configuration pattern.
+* [x] **0.4 Docker Blueprint:** Refine the `docker-compose.yml` blueprint in the project plan to use environment variables.
+
 ### Phase 1: Foundation and Backend Integration (Focus: API & Request Handling)
 
 * [ ] **1.1 Mopidy Setup:** Install Mopidy via Docker. Configure a volume mount for the local music library.
-* [ ] **1.2 Database Setup:** Set up a MariaDB container and define the initial schema (`requests` table with fields: `track_id`, `user_id`, `timestamp`, `status`).
-* [ ] **1.3 PHP Jukebox Backend (MVP):** Create a PHP API (e.g., using Slim) to handle core endpoints:
-    * `/api/search?q={term}`: Calls Mopidy's API to search the music library.
-    * `/api/request`: Accepts a `track_id` and adds the request to the SQL database.
-* [ ] **1.4 Basic Frontend (JS):** Create a simple HTML/JS page that allows searching and submitting a request (stored in MariaDB, not yet playing).
+* [ ] **1.2 Database Schema Definition:** Set up the MariaDB container and define the initial `requests` table. A file `database/schema.sql` should be created with the following content:
+  ```sql
+  CREATE TABLE requests (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      track_uri VARCHAR(255) NOT NULL,
+      user_identifier VARCHAR(255),
+      requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      status ENUM('pending', 'playing', 'played', 'error') NOT NULL DEFAULT 'pending'
+  );
+  ```
+* [ ] **1.3 PHP Jukebox Backend (MVP):** Create a PHP API using the Slim Framework to handle core endpoints:
+    *   `GET /api/search?q={term}`: Calls Mopidy's API to search the music library.
+    *   `POST /api/request`: Accepts a `track_uri` and adds the request to the `requests` table in the database.
+* [ ] **1.4 Basic Frontend (MVP):** Create a simple, functional HTML/JS page (no styling required) that includes:
+    *   A text input field for search queries.
+    *   A "Search" button.
+    *   A list/area to display search results returned from the API.
+    *   A "Request" button next to each search result.
+* [ ] **1.5 API Unit Tests:** Create basic unit tests for the backend API to verify that the `/search` and `/request` endpoints function correctly.
 
 ### Phase 2: The "Brain" Activation and Multi-Room (Focus: Flow & Endpoints)
 

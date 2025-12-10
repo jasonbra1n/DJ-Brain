@@ -17,6 +17,26 @@ Projects like the ["Mopidy Hackerspace Jukebox"](https://www.hackster.io/news/th
 
 DJ Brain's key differentiator is its decoupled, service-oriented architecture. By separating the request queue (in MariaDB) from the music player's internal tracklist, we enable persistence, priority/paid requests, and intelligent AI-driven queue management—features not easily achievable in monolithic designs.
 
+## 2. Repository & Hosting Strategy
+
+### Monorepo Approach
+
+This project utilizes a **monorepo** strategy, meaning the entire codebase for all services (`api`, `brain`, `frontend`) is contained within this single GitHub repository.
+
+This approach was chosen for several key reasons:
+-   **Atomic Commits:** Changes that span multiple services (e.g., updating an API endpoint and the frontend that consumes it) can be captured in a single commit and pull request. This keeps the project's history clean and easy to follow, and prevents version mismatches between components.
+-   **Simplified Contributor Experience:** New contributors only need to clone one repository to get the full project context. This lowers the barrier to entry for development and testing.
+-   **Unified Issue Tracking:** All issues for all components are tracked in one place, simplifying project management.
+
+### Frontend Hosting on GitHub Pages
+
+While the backend services are designed to be self-hosted via Docker, the frontend player is a static application (HTML/CSS/JS) that can be hosted anywhere.
+
+To provide a seamless, universally accessible player, the project will use **GitHub Pages**.
+-   **Deployment:** A GitHub Actions workflow will automatically deploy the contents of the `/src/frontend` directory to a specific branch (`gh-pages`), making it instantly available as a static website.
+-   **Connectivity:** This hosted web player will connect to any user's self-hosted DJ Brain backend. The application will prompt the user to enter the IP address or domain name of their server. This decouples the player from the server, allowing users to control their jukebox from anywhere with a web browser.
+-   **Support Pages:** Other static content, such as the user-facing manual (from the `/docs` folder) and project homepage, will also be served through GitHub Pages, creating a single, cohesive web presence.
+
 ## 3. Deployment Models
 
 The architecture supports two primary deployment models:
@@ -32,7 +52,7 @@ This model's key benefit is that it requires only one central music collection, 
 
 ---
 
-## 2. Service Interaction
+## 4. Service Interaction
 
 The flow of a typical user request looks like this:
 
@@ -66,7 +86,7 @@ sequenceDiagram
     end
 ```
 
-## 3. Project Review & Improvements
+## 5. Project Review & Improvements
 
 ### What's Great
 
@@ -93,7 +113,7 @@ sequenceDiagram
 - **AI "Brain" Service:** The `docker-compose.yml` is missing the placeholder for the Python "Brain" service planned for Phase 2. Adding it now (even commented out) makes the blueprint more complete.
 - **Initial Database Schema:** There is no SQL file to define the initial database tables.
 
-## 4. Future Versions (Beyond the Roadmap)
+## 6. Future Versions (Beyond the Roadmap)
 
 Once the core roadmap is complete, here are some potential future enhancements:
 
@@ -117,7 +137,7 @@ Once the core roadmap is complete, here are some potential future enhancements:
 
 ---
 
-## 5. Commercial Strategy: Open Core
+## 7. Commercial Strategy: Open Core
 
 The project is designed to support a commercial ecosystem through an "Open Core" model, allowing third parties to sell installations and offering optional paid upgrades.
 

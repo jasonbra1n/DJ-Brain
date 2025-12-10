@@ -1,4 +1,4 @@
-# DJ Brain 🧠
+# DJ Brain 🧠 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **DJ Brain is an open-source, self-hosted, AI-powered jukebox system.**
 
@@ -12,6 +12,21 @@ It allows DIY enthusiasts and venue operators to run their own jukebox using a p
 - **Intelligent Queue Management:** An AI core that can intelligently select music to fill gaps, keeping the vibe going.
 - **Multi-Room Audio:** Send music to different network audio players (e.g., Raspberry Pi).
 - **Open Source & Extensible:** Built with common technologies (PHP, Python, JS) and licensed under MIT for maximum freedom.
+
+## 📂 Project Structure
+
+```text
+.
+├── .env.example        # Example environment variables
+├── docs/               # The complete user manual
+├── config/             # Persistent configuration files
+├── data/               # Persistent data (e.g., database files)
+├── src/
+│   ├── api/            # PHP Slim backend
+│   ├── brain/          # Python AI engine
+│   └── frontend/       # Vanilla JS/HTML/CSS frontend
+└── docker-compose.yml  # Main Docker orchestration file
+```
 
 ## 🚀 Quick Start
 
@@ -35,7 +50,7 @@ It allows DIY enthusiasts and venue operators to run their own jukebox using a p
 ## 📚 Documentation
 
 - **[User Manual](./docs/index.md):** A complete guide for installation and operation.
-- **Project Plan:** The high-level project roadmap.
-- **Developer Guide:** Instructions for setting up the development environment and contributing.
-- **API Documentation:** Details on the custom backend API endpoints.
-- **Architecture Overview:** A high-level look at how the services interact.
+- **[Project Plan](./project_plan.md):** The high-level project roadmap.
+- **[Developer Guide](./CONTRIBUTING.md):** Instructions for setting up the development environment and contributing.
+- **[API Documentation](./API_DOCUMENTATION.md):** Details on the custom backend API endpoints.
+- **[Architecture Overview](./ARCHITECTURE.md):** A high-level look at how the services interact.

@@ -71,3 +71,72 @@ DJ Brain runs in Docker containers, which makes installation clean and simple.
     ```
 
 Your Raspberry Pi is now fully prepared. The next step will be to download and configure the DJ Brain software itself.
+
+---
+
+## Step 3: Download and Configure DJ Brain
+
+Now we will download the DJ Brain software and set up its configuration.
+
+1.  **Clone the Repository:**
+    Clone the DJ Brain repository from GitHub to your home directory.
+    ```bash
+    cd ~
+    git clone https://github.com/jasonbra1n/DJ-Brain.git
+    cd DJ-Brain
+    ```
+
+2.  **Create Your Configuration File:**
+    The project uses a `.env` file to store sensitive information and environment-specific settings. An example file is provided.
+    ```bash
+    cp .env.example .env
+    ```
+
+3.  **Edit the Configuration:**
+    Open the `.env` file with a text editor (like `nano`) to set your music path and secure passwords.
+    ```bash
+    nano .env
+    ```
+    -   **`DB_ROOT_PASSWORD`**: Change this to a secure, private password for the database administrator.
+    -   **`DB_PASSWORD`**: Change this to a different secure password for the main application user.
+    -   **`MUSIC_PATH`**: **This is the most critical setting.** You must change `/path/to/your/music` to the real, absolute path where your music files are stored on the Raspberry Pi.
+
+    Press `Ctrl+X`, then `Y`, then `Enter` to save the file and exit `nano`.
+
+---
+
+## Step 4: Launch the System
+
+With the configuration in place, you are ready to start the entire DJ Brain system.
+
+1.  **Run Docker Compose:**
+    From within the `DJ-Brain` directory, run the following command. This will download the necessary Docker images and start all the services. The first launch may take several minutes.
+    ```bash
+    docker-compose up -d
+    ```
+    The `-d` flag runs the containers in "detached" mode, meaning they will continue to run in the background.
+
+2.  **Initial Music Scan:**
+    The very first time you start the system, Mopidy (the music server) needs to scan your entire music library. This process can take a long time if your library is large. You can watch the progress of the scan by viewing the logs:
+    ```bash
+    docker-compose logs -f mopidy
+    ```
+    You will see output from Mopidy. Look for messages related to scanning your library. Once the scan is complete, you can safely exit the log view by pressing `Ctrl+C`.
+
+---
+
+## Step 5: Verify the Installation
+
+DJ Brain should now be running. You can verify this by accessing its components through your web browser.
+
+1.  **Mopidy Web Interface:**
+    Mopidy has its own web client, which is useful for direct administration.
+    -   **URL:** `http://<your_pi_ip_address>:6680/`
+    -   You should see the Mopidy landing page. From here you can access various web clients.
+
+2.  **DJ Brain Frontend (Once Available):**
+    The main DJ Brain web interface will be served from the PHP container.
+    -   **URL:** `http://<your_pi_ip_address>:8080/`
+    -   **Note:** In the early phases of development, this interface may not be fully functional. However, accessing the URL should not result in a "Connection Refused" error if the container is running correctly.
+
+Your installation is now complete. The system will automatically restart if you reboot your Raspberry Pi. You can now proceed to the **[Configuration](./02-configuration.md)** guide to learn more about managing your new jukebox.
