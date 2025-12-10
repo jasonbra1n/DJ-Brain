@@ -12,7 +12,7 @@ The entire project is orchestrated with Docker, which simplifies setup significa
 
 2.  **Fork & Clone:**
     -   Fork the repository on GitHub.
-    -   Clone your fork locally: `git clone https://github.com/YOUR-USERNAME/DJ-Brain.git`
+    -   Clone your fork locally: `git clone https://github.com/jasonbra1n/DJ-Brain.git`
 
 3.  **Configuration:**
     -   The `docker-compose.yml` file uses environment variables for configuration. Create a `.env` file from the example:
@@ -54,7 +54,7 @@ Before you start coding, it's helpful to familiarize yourself with the project's
 - **[Project Plan](project_plan.md):** Understand the roadmap and current phase of development.
 - **[Architecture Overview](ARCHITECTURE.md):** Learn about the high-level design, service interactions, and commercial strategy.
 - **[API Documentation](API_DOCUMENTATION.md):** See the contract for how the frontend and backend communicate.
-- **[User Manual](./docs/index.md):** Review the end-user documentation. As you add or change features, please update the relevant sections of the manual.
+- **[User Manual](/docs/index.md):** Review the end-user documentation. As you add or change features, please update the relevant sections of the manual.
 
 ## 🤝 How to Contribute
 

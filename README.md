@@ -18,7 +18,7 @@ It allows DIY enthusiasts and venue operators to run their own jukebox using a p
 1.  **Prerequisites:** Ensure you have `Docker` and `Docker Compose` installed on your server.
 2.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/DJ-Brain.git
+    git clone https://github.com/jasonbra1n/DJ-Brain.git
     cd DJ-Brain
     ```
 3.  **Configure:**
